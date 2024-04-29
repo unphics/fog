@@ -8,6 +8,7 @@
 
 int main(int argc, char** argv) {
 
+#if 0
     ::fog::log::raw_push_log(::fog::log::raw_print_oss("gcc version:", __GNUC__));
     ::fog::log::raw_push_log(::fog::log::raw_print_oss("current cpp version:", __cplusplus));
 #ifdef XMAKE
@@ -26,7 +27,9 @@ int main(int argc, char** argv) {
         task->id = 1000 + i;
         fog::actor::mgr::inst()->send(fog::actor::def::session, std::move(task));
     }
+#endif
 
+    
 
     ::sleep(20);
     return 0;

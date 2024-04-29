@@ -41,10 +41,6 @@ std::ostringstream raw_print_oss(Args... args) {
     return oss;
 }
 
-void raw_push_log(std::ostringstream oss);
-
-}
-
 template<typename... Args>
 void print(Args... args) {
     std::ostringstream oss(std::move(::fog::log::raw_print_oss(args...)));

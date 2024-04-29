@@ -1,6 +1,14 @@
 #ifndef fog_svr_server
 #define fog_svr_server
 
+/**
+ * @file server.hh
+ * @date Mon Apr 29 2024 21:53:28 GMT+0800 (中国标准时间)
+ * @author zys
+ * @version 1.0
+ * @brief server base
+ */
+
 #include <stdint.h>
 #include <string>
 #include <vector>
