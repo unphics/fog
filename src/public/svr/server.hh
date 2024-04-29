@@ -5,8 +5,8 @@
  * @file server.hh
  * @date Mon Apr 29 2024 21:53:28 GMT+0800 (中国标准时间)
  * @author zys
- * @version 1.0
- * @brief server base
+ * @version 0.1
+ * @brief 服务基类
  */
 
 #include <stdint.h>

@@ -12,20 +12,50 @@ std::string log_dir = "";
 
 namespace fog::log {
 
-logger* logger::get_inst() {
-    if (logger::_singleton == nullptr) {
-        logger::_singleton = new logger;
-        logger::_singleton->init();
+logger::logger(const std::string& logger_name) {
+    this->_log_file_name = "default_log_file_name";
+    this->_logger_name = logger_name;
+
+    if (sub_dir == "") {
+        auto now = ::std::chrono::system_clock::now();
+        ::std::time_t now_time = ::std::chrono::system_clock::to_time_t(now) - 50;
+        ::std::tm* local_time = ::std::localtime(&now_time);
+        ::std::ostringstream oss;
+        oss << local_time->tm_year + 1900
+            << "."
+            << local_time->tm_mon + 1
+            << "."
+            << local_time->tm_mday
+            << "-"
+            << local_time->tm_hour
+            << "."
+            << local_time->tm_min
+            << "."
+            << local_time->tm_sec;
+        sub_dir = oss.str();
     }
-    return logger::_singleton;
+
+    this->init();
 }
 void logger::init() {
     auto now = ::std::chrono::system_clock::now();
     ::std::time_t now_time = ::std::chrono::system_clock::to_time_t(now) - 50;
     ::std::tm* local_time = ::std::localtime(&now_time);
     ::std::ostringstream oss;
-    oss << "Log_" << local_time->tm_year + 1900 << "_" << local_time->tm_mon + 1 << "_" << local_time->tm_mday
-        << "_" << local_time->tm_hour << "_" << local_time->tm_min << "_" << local_time->tm_sec;
+    oss << "Log-"
+        << this->_logger_name
+        << "-"
+        << local_time->tm_year + 1900
+        << "."
+        << local_time->tm_mon + 1
+        << "."
+        << local_time->tm_mday
+        << "-"
+        << local_time->tm_hour
+        << "."
+        << local_time->tm_min
+        << "."
+        << local_time->tm_sec;
     this->_log_file_name = oss.str();
 }
 std::string logger::get_log_file_url() {
@@ -43,9 +73,6 @@ void logger::push_log(std::ostringstream& oss) {
     }
     this->_mutex.unlock();
     printf("fetal: failed to open log file !!!\n");
-}
-logger::logger() {
-    this->_log_file_name = "default_log_file_name";
 }
 
 }

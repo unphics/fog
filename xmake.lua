@@ -1,5 +1,7 @@
 add_rules("mode.debug", "mode.release", {debuginfo = 'all'})
 
+add_requires("boost")
+
 target("fog")
     add_defines("XMAKE")
     set_kind("binary")

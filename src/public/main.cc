@@ -5,16 +5,17 @@
 #include "saa/saa.hh"
 #include "actor/session.hh"
 #include "time/time.hh"
+#include "log/logger.hh"
 
 int main(int argc, char** argv) {
 
 #if 0
-    ::fog::log::raw_push_log(::fog::log::raw_print_oss("gcc version:", __GNUC__));
-    ::fog::log::raw_push_log(::fog::log::raw_print_oss("current cpp version:", __cplusplus));
+    ::fog::log::print_draw_only(::fog::log::make_print_oss("gcc version:", __GNUC__));
+    ::fog::log::print_draw_only(::fog::log::make_print_oss("current cpp version:", __cplusplus));
 #ifdef XMAKE
-    ::fog::log::raw_push_log(::fog::log::raw_print_oss("use xmake build"));
+    ::fog::log::print_draw_only(::fog::log::make_print_oss("use xmake build"));
 #endif
-    ::fog::log::raw_push_log(::fog::log::raw_print_oss("main thread id is:", ::syscall(SYS_gettid)));
+    ::fog::log::print_draw_only(::fog::log::make_print_oss("main thread id is:", ::syscall(SYS_gettid)));
 
     fog::actor::mgr::inst()->create<fog::actor::def::log>();
     fog::actor::mgr::inst()->create<fog::actor::def::session>();
@@ -28,9 +29,8 @@ int main(int argc, char** argv) {
         fog::actor::mgr::inst()->send(fog::actor::def::session, std::move(task));
     }
 #endif
-
-    
-    std::cout << "q" << std::endl;
+    fog::log::logger logger("MainThread");
+    logger.print("qqq", "www");
     ::sleep(20);
     return 0;
 }
