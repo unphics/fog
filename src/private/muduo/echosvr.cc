@@ -61,7 +61,7 @@ void echosvr::on_msg(std::shared_ptr<connect> conn, std::string msg) {
 void echosvr::shut_down() {
     // 停止工作线程
     this->_wrok_pool.shut_down();
-    print("work thread has shut down");
+    log::print("work thread has shut down");
     // 停止IO线程
     this->_tcp.shut_down();
 }

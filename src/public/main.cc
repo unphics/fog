@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
 #endif
 
     
-
+    std::cout << "q" << std::endl;
     ::sleep(20);
     return 0;
 }

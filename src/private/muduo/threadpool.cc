@@ -9,7 +9,7 @@ namespace fog::muduo {
 threadpool::threadpool(size_t count, const char* thd_name): _stop(false), _thd_name(thd_name) {
     for (size_t i = 0; i < count; ++i) {
         this->_thds.emplace_back([this]{
-            print("create :", this->_thd_name, ", thread:", ::syscall(SYS_gettid));
+            log::print("create :", this->_thd_name, ", thread:", ::syscall(SYS_gettid));
             while (this->_stop == false) {
                 std::function<void()> task;
                 {
@@ -24,7 +24,7 @@ threadpool::threadpool(size_t count, const char* thd_name): _stop(false), _thd_n
                     task = std::move(this->_queue.front());
                     this->_queue.pop();
                 }
-                // print(this->_thd_name, ::syscall(SYS_gettid), "exec task");
+                // log::print(this->_thd_name, ::syscall(SYS_gettid), "exec task");
                 task();
             }
         });

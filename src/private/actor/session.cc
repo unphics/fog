@@ -10,7 +10,7 @@ session::session(::fog::actor::def def): actor(def) {
 
 }
 void session::start() {
-    print("actor start on thread:", ::syscall(SYS_gettid));
+    log::print("actor start on thread:", ::syscall(SYS_gettid));
     this->_session();
 }
 void session::_session() {
@@ -31,7 +31,7 @@ void session::_session() {
     }
 }
 void session::_deal(std::unique_ptr<task> task) {
-    print("[deal] thread", ::syscall(SYS_gettid),"deal task:", task->id);
+    log::print("[deal] thread", ::syscall(SYS_gettid),"deal task:", task->id);
 }
 
 }

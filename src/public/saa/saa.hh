@@ -12,7 +12,7 @@ namespace fog::saa {
 
 
 void saa() {
-    print("===== SAA begin =====");
+    // print("===== SAA begin =====");
     linear_list::linear_list();
     linked_list::test_singly_linked_list();
     

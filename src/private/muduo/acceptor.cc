@@ -29,7 +29,7 @@ acceptor::~acceptor() {
     delete this->_lchnl;
 }
 void acceptor::new_conn() {
-    print("[acceptor] : new conn !");
+    log::print("[acceptor] : new conn !");
     inetaddr caddr;
     std::unique_ptr<socket> csock = std::make_unique<socket>(this->_lsock->accept(caddr));
     // socket* csock = new socket(this->_lsock->accept(caddr));

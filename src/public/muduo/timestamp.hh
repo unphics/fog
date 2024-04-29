@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include "essential.hh"
 #include <string>
 
 namespace fog::muduo {

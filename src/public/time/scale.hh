@@ -20,7 +20,7 @@ public:
         this->handle();
         this->_cur++;
         if (this->_cur >= this->_capacity && this->_up_scale) {
-            print("time wheel up !");
+            log::print("time wheel up !");
             this->_up_scale->tick();
             this->_cur = 0;
         }
@@ -41,7 +41,7 @@ public:
         this->_wheel.reserve(this->_capacity);
     }
     virtual void handle() {
-        print("second", this->_cur);
+        log::print("second", this->_cur);
         for(auto it = this->_wheel[this->_cur].begin(); it != this->_wheel[this->_cur].end(); ++it) {
 
         }
@@ -54,7 +54,7 @@ public:
         this->_wheel.reserve(this->_capacity);
     }
     virtual void handle() {
-        print("minute", this->_cur);
+        log::print("minute", this->_cur);
         for(auto it = this->_wheel[this->_cur].begin(); it != this->_wheel[this->_cur].end(); ++it) {
 
         }

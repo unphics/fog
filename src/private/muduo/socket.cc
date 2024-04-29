@@ -3,7 +3,6 @@
 #include "essential.hh"
 
 #include <arpa/inet.h> // socket
-#include <iostream> // print
 #include <netinet/tcp.h>  // TCP_NODELAY
 #include <unistd.h> // close
 #include <cstring> // strerror
@@ -13,7 +12,7 @@ namespace fog::muduo {
 
 socket::socket(const uint32_t& fd): _fd(fd) {
     if (this->_fd < 0) {
-        print("failed to create socket fd !!!");
+        log::print("failed to create socket fd !!!");
         printf("file: %s, function: %s, line: %d, errno: %s\n", __FILE__, __FUNCTION__, __LINE__, strerror(errno));
         ::exit(-1);
     }
@@ -29,7 +28,7 @@ uint32_t socket::create_nonb() {
 }
 bool socket::bind(const inetaddr& addr) {
     if (::bind(this->_fd, addr.addr(), sizeof(struct ::sockaddr)) == -1) {
-        print("failed to bind socket !!!");
+        log::print("failed to bind socket !!!");
         return false;
     }
     this->set_ip_port(addr.ip(), addr.port());
@@ -37,7 +36,7 @@ bool socket::bind(const inetaddr& addr) {
 }
 bool socket::listen(int num) {
     if (::listen(this->_fd, num) < 0) {
-        print("failed to listen socket !!!");
+        log::print("failed to listen socket !!!");
         return false;
     }
     return true;

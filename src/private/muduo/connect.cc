@@ -22,7 +22,7 @@ connect::connect(eventloop* loop, std::unique_ptr<socket> csock): _loop(loop), _
     this->_cchnl->enable_read();
 }
 connect::~connect() {
-    print("connect::~connect()");
+    log::print("connect::~connect()");
 }
 uint32_t connect::fd() const {
     return this->_csock->fd();
@@ -34,7 +34,7 @@ uint32_t connect::port() const {
     return this->_csock->port();
 }
 void connect::on_close() {
-    print("client close");
+    log::print("client close");
     this->_disconn = true;
     this->_cchnl->remove();
     if (this->_close_cb) {
@@ -78,7 +78,7 @@ void connect::on_msg() {
                     break;
                 }
                 // printf("msg : %s, size: %i\n", msg.data(), msg.size());
-                print("recv msg, size:", msg.size());
+                log::print("recv msg, size:", msg.size());
                 this->_last_at_time = timestamp::now();
                 // std::cout << "last at time: " << this->_last_at_time.to_str() << std::endl;
                 if (this->_msg_cb) {
@@ -88,17 +88,17 @@ void connect::on_msg() {
             break;
         } else if (nread == 0) {
             // 客户端连接已经断开
-            print("recv client disconnected");
+            log::print("recv client disconnected");
             this->on_close();
             break;
         } else {
-            print("recv 什么情况");
+            log::print("recv 什么情况");
         }
     }
 }
 void connect::send(char* data, size_t size) {
     if (this->_disconn == true) {
-        print("client has been disconnected !!!");
+        log::print("client has been disconnected !!!");
         return;
     }
     if (this->_loop->is_in_loop_thd()) {
@@ -113,7 +113,7 @@ void connect::send(char* data, size_t size) {
     }
 }
 void connect::send_in_loop(char* data, size_t size) {
-    print("send size:", size, ", info:", data);
+    log::print("send size:", size, ", info:", data);
     this->_output_buf.append(data, size);
     this->_cchnl->enable_write();
 }

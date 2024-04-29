@@ -17,7 +17,7 @@ namespace fog::muduo {
 tcpsvr::tcpsvr(const std::string& ip, uint32_t port, uint32_t thd_count): _thd_count(thd_count),
     _main_loop(new eventloop(true)), _acceptor(new acceptor(this->_main_loop.get(), ip, port)),
     _thd_pool(new threadpool(this->_thd_count, "io_thd")) {
-    print("tcpsvr::tcpsvr main thd is", ::syscall(SYS_gettid));
+    log::print("tcpsvr::tcpsvr main thd is", ::syscall(SYS_gettid));
     this->_main_loop->set_time_out_cb(std::bind(&tcpsvr::_on_time_out, this, std::placeholders::_1));
     this->_acceptor->set_new_conn_cb(std::bind(&tcpsvr::_on_new_conn, this, std::placeholders::_1));
     for (uint32_t i = 0; i < this->_thd_count; ++i) {
@@ -34,7 +34,7 @@ void tcpsvr::start() {
     this->_main_loop->run();
 }
 void tcpsvr::_on_new_conn(std::unique_ptr<socket> csock) {
-    // printf("accept new client fd =", csock->fd(), ", ip =", csock->ip().c_str(), ", port =", csock->port());
+    // log::printf("accept new client fd =", csock->fd(), ", ip =", csock->ip().c_str(), ", port =", csock->port());
     std::shared_ptr<connect> share_conn = std::make_shared<connect>(this->_sub_loops[csock->fd() % this->_thd_count].get(), std::move(csock));
     share_conn->set_close_cb(std::bind(&tcpsvr::_on_conn_close, this, std::placeholders::_1));
     share_conn->set_error_cb(std::bind(&tcpsvr::_on_conn_error, this, std::placeholders::_1));
@@ -53,7 +53,7 @@ void tcpsvr::_on_conn_close(std::shared_ptr<connect> conn) {
     if (this->_conn_close_cb) {
         this->_conn_close_cb(conn);
     }
-    print("client disconnected !!!");
+    log::print("client disconnected !!!");
     {
         std::lock_guard<std::mutex> guard(this->_mutex);
         this->_conns.erase(conn->fd());
@@ -80,7 +80,7 @@ void tcpsvr::_on_post_send(std::shared_ptr<connect> conn) {
     }
 }
 void tcpsvr::_on_time_out(eventloop* loop) {
-    print("epoll wait time out");
+    log::print("epoll wait time out");
     if (this->_time_out_cb) {
         this->_time_out_cb(loop);
     }
@@ -112,13 +112,13 @@ void tcpsvr::remove_conn(uint32_t fd) {
 }
 void tcpsvr::shut_down() {
     this->_main_loop->shut_down();
-    print("主事件循环已停止");
+    log::print("主事件循环已停止");
     for (auto it = this->_sub_loops.begin(); it != this->_sub_loops.end(); ++it) {
         it->get()->shut_down();
     }
-    print("从事件循环已停止");
+    log::print("从事件循环已停止");
     this->_thd_pool->shut_down();
-    print("IO线程池已停止");
+    log::print("IO线程池已停止");
 }
 
 }

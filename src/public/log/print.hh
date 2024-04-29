@@ -45,7 +45,8 @@ template<typename... Args>
 void print(Args... args) {
     std::ostringstream oss(std::move(::fog::log::raw_print_oss(args...)));
     std::unique_ptr<::fog::actor::task> unique = std::make_unique<::fog::log::task>(new std::ostringstream(std::move(oss)));
-    ::fog::actor::mgr::inst()->send(::fog::actor::def::log, std::move(unique));
+    // ::fog::actor::mgr::inst()->send(::fog::actor::def::log, std::move(unique));
 }
 
+}
 #endif

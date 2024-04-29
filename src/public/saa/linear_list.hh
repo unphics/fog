@@ -36,7 +36,7 @@ struct linear {
         for (int i = 0; i < this->_len; i++) {
             str.append(std::to_string(this->_data[i])).append(", ");
         }
-        print("linear: ", str);
+        // print("linear: ", str);
     }
     bool get_elem(int i, T& e) {
         if (i < 0 || i > this->_len) return false;
@@ -164,7 +164,7 @@ private:
 };
 
 void linear_list() {
-    print("===== linear_list =====");
+    // print("===== linear_list =====");
     int a = 3;
     int b = 2;
     a = a + b;

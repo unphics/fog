@@ -131,21 +131,21 @@ struct singly_linked_list {
             str.append(std::to_string(cur->data)).append(", ");
             cur = cur->next;
         }
-        print("display fwd link list: ", str);
+        // print("display fwd link list: ", str);
     }
     singly_node<T>* head;
 };
 
 void test_singly_linked_list() {
-    print("===== test singly linked list ====");
+    // print("===== test singly linked list ====");
     int arr[] = {5, 4, 8, 0, 1, 3, 7};
     singly_linked_list<int>* list = new singly_linked_list<int>(arr, sizeof(arr) / sizeof(int));
     list->display();
-    print("list len:", list->len());
+    // print("list len:", list->len());
     int data_1;
     list->get_elem(3, data_1);
-    print("find 3th data =", data_1);
-    print("find val 0 idx =", list->local_elem(0));
+    // print("find 3th data =", data_1);
+    // print("find val 0 idx =", list->local_elem(0));
     list->insert(4, 9);
     list->display();
     int out_1;

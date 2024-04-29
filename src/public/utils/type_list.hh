@@ -26,4 +26,10 @@ struct get_nth_type<type_list<>, N> {
 
 }
 
+/**
+ * 示例:
+ * using types = ::fog::utils::tmpl::type_list<session, tick, log::log>;
+ * template<def d>
+ * using def_class_t = ::fog::utils::tmpl::get_nth_type<types, ((int)d - 1)>::type;;
+ */
 #endif

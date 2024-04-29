@@ -9,7 +9,7 @@ tick::tick(::fog::actor::def def): actor(def)  {
     
 }
 void tick::start() {
-    print("actor start on thread:", ::syscall(SYS_gettid));
+    log::print("actor start on thread:", ::syscall(SYS_gettid));
     this->_tick();
 }
 void tick::_tick() {

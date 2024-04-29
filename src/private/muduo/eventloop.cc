@@ -39,7 +39,7 @@ eventloop::~eventloop() {
     delete this->_ep;
 }
 void eventloop::run() {
-    print("eventloop::run() thd is ", ::syscall(SYS_gettid));
+    log::print("eventloop::run() thd is ", ::syscall(SYS_gettid));
     this->_thd_id = ::syscall(SYS_gettid);
     while (this->_shut_down == false) {
         std::vector<fog::muduo::channel*> chnls = this->_ep->loop();
