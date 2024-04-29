@@ -1,10 +1,10 @@
-#include "net/threadpool.hh"
+#include "muduo/threadpool.hh"
 
 #include "essential.hh"
 #include <unistd.h> // syscall
 #include <syscall.h> // SYS_gettid
 
-namespace fog::net {
+namespace fog::muduo {
 
 threadpool::threadpool(size_t count, const char* thd_name): _stop(false), _thd_name(thd_name) {
     for (size_t i = 0; i < count; ++i) {

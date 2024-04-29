@@ -8,7 +8,7 @@
 #include <sys/timerfd.h>
 #include <atomic>
 
-namespace fog::net {
+namespace fog::muduo {
 
 class poller;
 class channel;

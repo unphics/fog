@@ -1,15 +1,15 @@
-#include "net/connect.hh"
+#include "muduo/connect.hh"
 
 #include "essential.hh"
-#include "net/channel.hh"
-#include "net/poller.hh"
-#include "net/socket.hh"
-#include "net/eventloop.hh"
+#include "muduo/channel.hh"
+#include "muduo/poller.hh"
+#include "muduo/socket.hh"
+#include "muduo/eventloop.hh"
 
 #include <unistd.h>
 #include <cstring>
 
-namespace fog::net {
+namespace fog::muduo {
 
 connect::connect(eventloop* loop, std::unique_ptr<socket> csock): _loop(loop), _csock(std::move(csock)),
     _disconn(false), _cchnl(new channel(loop, this->_csock->fd())) {

@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 
-namespace fog::net {
+namespace fog::muduo {
 
 class inetaddr {
 public:

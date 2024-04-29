@@ -1,8 +1,8 @@
-#include "net/buffer.hh"
+#include "muduo/buffer.hh"
 
 #include <cstring>
 
-namespace fog::net {
+namespace fog::muduo {
 
 buffer::buffer(uint16_t sep): _sep(sep) {}
 buffer::~buffer() {}

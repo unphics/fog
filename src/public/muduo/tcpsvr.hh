@@ -7,7 +7,7 @@
 #include <memory>
 #include <mutex>
 
-namespace fog::net {
+namespace fog::muduo {
 
 class socket;
 class acceptor;

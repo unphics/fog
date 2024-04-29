@@ -5,7 +5,6 @@
 #include "saa/saa.hh"
 #include "actor/session.hh"
 #include "time/time.hh"
-#include "center/center.hh"
 
 int main(int argc, char** argv) {
 

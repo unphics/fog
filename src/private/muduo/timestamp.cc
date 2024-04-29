@@ -1,6 +1,6 @@
-#include "net/timestamp.hh"
+#include "muduo/timestamp.hh"
 
-namespace fog::net {
+namespace fog::muduo {
 
 timestamp::timestamp() {
     this->_sec_since_epoch = ::time(0);

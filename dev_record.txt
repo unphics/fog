@@ -21,3 +21,12 @@ gcc编译module:
     g++ mod.o main.o -o main
 
 sudo apt install ninja-build
+
+
+task_list:
+    清理项目目录, 将net中的内容转至muduo
+    封存actor和muduo目录, 去掉其他模块对于这两个模块的使用
+    引入entity和component的概念
+    重新设计server_base
+    将log_svr分至各个server形成专有log, 每个svr使用自己的log文件
+    

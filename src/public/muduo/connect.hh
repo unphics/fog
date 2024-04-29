@@ -8,7 +8,7 @@
 #include <memory>
 #include <atomic>
 
-namespace fog::net {
+namespace fog::muduo {
 
 class eventloop;
 class socket;

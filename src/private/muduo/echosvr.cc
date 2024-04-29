@@ -1,14 +1,14 @@
-#include "net/echosvr.hh"
+#include "muduo/echosvr.hh"
 
 #include "essential.hh"
-#include "net/connect.hh"
+#include "muduo/connect.hh"
 
 #include "client_test.pb.h"
 
 #include <unistd.h> // syscall
 #include <syscall.h> // SYS_gettid
 
-namespace fog::net {
+namespace fog::muduo {
 
 echosvr::echosvr(const std::string& ip, uint32_t port, uint32_t thd_count, uint32_t work_count): _tcp(ip, port, thd_count), _wrok_pool(work_count, "work_thd") {
     this->_tcp.set_new_conn_cb(std::bind(&echosvr::handle_new_conn, this, std::placeholders::_1));

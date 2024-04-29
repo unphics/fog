@@ -3,7 +3,7 @@
 #include "inetaddr.hh"
 #include <cstdint>
 
-namespace fog::net {
+namespace fog::muduo {
 
 class socket {
 public:

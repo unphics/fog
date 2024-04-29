@@ -1,9 +1,9 @@
-#include "net/eventloop.hh"
+#include "muduo/eventloop.hh"
 
 #include "essential.hh"
-#include "net/poller.hh"
-#include "net/channel.hh"
-#include "net/connect.hh"
+#include "muduo/poller.hh"
+#include "muduo/channel.hh"
+#include "muduo/connect.hh"
 
 #include <unistd.h> // syscall
 #include <syscall.h> // SYS_gettid
@@ -22,7 +22,7 @@ int create_timer_fd(int sec) {
     return tfd;
 }
 
-namespace fog::net {
+namespace fog::muduo {
 
 eventloop::eventloop(bool main_loop, int time_tvl, int time_out):_main_loop(main_loop), _time_tvl(time_tvl),
     _time_out(time_out), _shut_down(false), _ep(new poller), _weakup_fd(::eventfd(0, EFD_NONBLOCK)), 
@@ -42,7 +42,7 @@ void eventloop::run() {
     print("eventloop::run() thd is ", ::syscall(SYS_gettid));
     this->_thd_id = ::syscall(SYS_gettid);
     while (this->_shut_down == false) {
-        std::vector<fog::net::channel*> chnls = this->_ep->loop();
+        std::vector<fog::muduo::channel*> chnls = this->_ep->loop();
         if (chnls.size() == 0) {
             if (this->_time_out_cb) {
                 this->_time_out_cb(this);

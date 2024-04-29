@@ -1,3 +1,6 @@
+#
+# 此文件为CMake学习示例, 自己已经停止维护适配
+#
 cmake_minimum_required(VERSION 3.22) # cmake最低版本, 非必须填写
 
 # 配置项目

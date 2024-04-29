@@ -1,21 +1,21 @@
-#include "net/acceptor.hh"
+#include "muduo/acceptor.hh"
 
 #include "essential.hh"
-#include "net/eventloop.hh"
-#include "net/channel.hh"
-#include "net/socket.hh"
-#include "net/connect.hh"
+#include "muduo/eventloop.hh"
+#include "muduo/channel.hh"
+#include "muduo/socket.hh"
+#include "muduo/connect.hh"
 
-namespace fog::net {
+namespace fog::muduo {
 
 acceptor::acceptor(eventloop* loop, const std::string& ip, const uint32_t& port): _loop(loop) {
-    this->_lsock = new fog::net::socket(fog::net::socket::create_nonb());
+    this->_lsock = new fog::muduo::socket(fog::muduo::socket::create_nonb());
     this->_lsock->set_reuse_addr();
     this->_lsock->set_reuse_port();
     this->_lsock->set_tcp_no_delay();
     this->_lsock->set_keep_alive();
 
-    fog::net::inetaddr laddr(ip, port);
+    fog::muduo::inetaddr laddr(ip, port);
 
     this->_lsock->bind(laddr);
     this->_lsock->listen();

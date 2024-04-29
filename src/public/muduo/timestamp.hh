@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-namespace fog::net {
+namespace fog::muduo {
 
 class timestamp {
 public:

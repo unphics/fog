@@ -1,4 +1,4 @@
-#include "net/socket.hh"
+#include "muduo/socket.hh"
 
 #include "essential.hh"
 
@@ -9,7 +9,7 @@
 #include <cstring> // strerror
 #include <cstdlib> // exit 和 abort
 
-namespace fog::net {
+namespace fog::muduo {
 
 socket::socket(const uint32_t& fd): _fd(fd) {
     if (this->_fd < 0) {

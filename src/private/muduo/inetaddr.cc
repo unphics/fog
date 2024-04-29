@@ -1,9 +1,9 @@
-#include "net/inetaddr.hh"
+#include "muduo/inetaddr.hh"
 
 #include <arpa/inet.h> // inet_addr
 // #include <sock
 
-namespace fog::net {
+namespace fog::muduo {
 
 inetaddr::inetaddr(const std::string& ip, uint32_t port) {
     this->_addr.sin_family = AF_INET; // ipv4

@@ -6,12 +6,12 @@
 
 #include "proto/test.pb.h"
 
-#include "net/tcpsvr.hh"
-#include "net/echosvr.hh"
+#include "muduo/tcpsvr.hh"
+#include "muduo/echosvr.hh"
 
-namespace fog::svr {
+namespace fog::muduo {
 
-fog::net::echosvr* echosvr;
+fog::muduo::echosvr* echosvr;
 
 void shut_down(int sig) {
     print("[signal] : recv sig: %d", sig);
@@ -28,7 +28,7 @@ void echo_svr_test() {
     ::signal(SIGINT, shut_down);
 
     
-    // echosvr = new fog::net::echosvr("0.0.0.0", 8765, 4, 2);
+    // echosvr = new fog::muduo::echosvr("0.0.0.0", 8765, 4, 2);
     // echosvr->start();
 }
 

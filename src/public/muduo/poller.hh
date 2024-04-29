@@ -6,7 +6,7 @@
 
 #define MAX_EVS 128
 
-namespace fog::net {
+namespace fog::muduo {
 
 class channel;
 

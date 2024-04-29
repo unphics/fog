@@ -3,7 +3,7 @@
 #include <string>
 #include <cstdint>
 
-namespace fog::net {
+namespace fog::muduo {
 
 class buffer {
 public:

@@ -8,7 +8,7 @@
 #include <condition_variable>
 #include <atomic>
 
-namespace fog::net {
+namespace fog::muduo {
 
 class threadpool {
 public:
