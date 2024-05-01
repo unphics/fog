@@ -17,7 +17,7 @@
 
 namespace fog::log {
 
-std::string sub_dir = "";
+static std::string sub_dir = "";
 
 class logger {
 public:
@@ -25,6 +25,7 @@ public:
     template<typename... Args>
     void print(Args... argv) {
         std::ostringstream oss = make_print_oss(argv...);
+        std::cout << oss.str() << std::endl;
         this->push_log(oss);
     }
     std::string get_log_file_url();
