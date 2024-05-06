@@ -1,6 +1,7 @@
 add_rules("mode.debug", "mode.release", {debuginfo = 'all'})
 
 add_requires("boost")
+add_requires("protobuf-cpp")
 
 target("fog")
     add_defines("XMAKE")
@@ -11,6 +12,7 @@ target("fog")
     add_includedirs("src/proto")
     add_includedirs("src/public")
     add_files("src/**.cc")
+    add_files("proto/**.proto", {rules = "protobuf.cpp", proto_rootdir = "proto"})
     -- set_policy("build.c++.modules", true)
 target_end()
 
