@@ -1,10 +1,13 @@
-
+#include "center/center_svr.hh"
 #include "essential.hh"
 #include "actor/mgr.hh"
 #include "actor/task.hh"
 #include "actor/session.hh"
 #include "time/time.hh"
 #include "log/logger.hh"
+#include <thread>
+#include "bot/bot.hh"
+#include "bot/gate_bot.hh"
 
 int main(int argc, char** argv) {
 
@@ -28,8 +31,22 @@ int main(int argc, char** argv) {
         fog::actor::mgr::inst()->send(fog::actor::def::session, std::move(task));
     }
 #endif
+
+#if 0 // logger test
     fog::log::logger logger("MainThread");
     logger.print("qqq", "www");
-    ::sleep(20);
+
+#endif
+
+    std::jthread jthd([] {
+        ::fog::center::center_svr* center = new ::fog::center::center_svr("center");
+        center->svr_run();
+        center->tick();
+        delete center;
+    });
+    ::fog::bot::run_bot([] {
+        ::fog::bot::gate_bot_01();
+    }, 1);
+    jthd.join();
     return 0;
 }

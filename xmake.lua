@@ -9,14 +9,17 @@ target("fog")
     set_kind("binary")
     set_languages("cxx23")
     add_files("src/**.cc")
+    add_includedirs("src")
+    add_includedirs("src/public")
+    -- boost begin
+    add_packages("boost")
+    -- boost end
+    -- protobuf begin
     add_links("protobuf")
     add_packages("protobuf-cpp")
     add_rules("protobuf.cpp")
-    add_includedirs("src")
-    -- add_includedirs("src/proto")
-    add_includedirs("src/public")
-    add_files("*.cpp")
     add_files("proto/**.proto", {proto_rootdir = "proto"})
+    -- protobuf end
     -- set_policy("build.c++.modules", true)
 target_end()
 

@@ -11,10 +11,9 @@ namespace fog::gate {
 class gate_svr: public ::fog::svr::svr_base {
 public:
     gate_svr(const std::string svr_name);
+    virtual ~gate_svr();
+    virtual void svr_run() override;
 protected:
-    virtual void _svr_run() override;
-    std::condition_variable _cond;
-    std::mutex _mutex;
 };
 
 }
