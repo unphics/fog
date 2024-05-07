@@ -1,3 +1,4 @@
+
 #ifndef fog_gate_gate_svr
 #define fog_gate_gate_svr
 
