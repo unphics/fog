@@ -8,7 +8,7 @@
 
 namespace fog::gate {
 
-gate_svr::gate_svr(const std::string svr_name):svr_base(svr_name) {}
+gate_svr::gate_svr(const std::string svr_name, center::center_svr* center): svr_base(svr_name), _center(center) {}
 gate_svr::~gate_svr() {}
 void gate_svr::svr_run() {
     boost::asio::io_service io_service; // 一个服务的类, 给这个udp通信初始化

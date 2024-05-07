@@ -24,7 +24,7 @@ void center_svr::tick() {
 }
 void center_svr::run_gate() {
     std::jthread jthd([this] {
-        this->gate = new gate::gate_svr("gate");
+        this->gate = new gate::gate_svr("gate", this);
         this->gate->svr_run();
     });
     jthd.detach();
