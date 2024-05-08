@@ -10,7 +10,7 @@
 
 namespace fog::bot {
 
-void run_bot(std::function<void()> bot_fn, uint16_t delay) {
+void run_bot(uint16_t delay, std::function<void()> bot_fn) {
     ::sleep(delay);
     std::jthread jthd([&] {
         std::cout << "run_bot" << std::endl;
