@@ -30,7 +30,7 @@ void gate_bot_login() {
     ::memset(buf, 0, 1024);
     std::string send_str("msg send");
     char msg[] = "msg send\0";
-    uint16_t len = sizeof(msg) / sizeof(char); // 9;
+    uint16_t len = sizeof(msg) / sizeof(char);
     ::memcpy(buf, &len, sizeof(uint16_t));
     uint16_t proto = 10001;
     std::cout << "bot: len " << len << std::endl;
