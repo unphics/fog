@@ -4,6 +4,8 @@
 
 #include "svr/svr_base.hh"
 
+#include <boost/asio.hpp>
+
 #include <condition_variable>
 #include <mutex>
 
@@ -17,7 +19,10 @@ public:
     virtual ~gate_svr();
     virtual void svr_run() override;
 protected:
+    boost::asio::io_service* _io_svc;
+    boost::asio::ip::udp::socket* _udp_sock;
     center::center_svr* _center;
+    boost::asio::ip::udp::endpoint* _saddr; // field: address(), port()
 };
 
 }

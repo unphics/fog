@@ -42,7 +42,8 @@ int main(int argc, char** argv) {
         delete center;
     });
     ::fog::bot::run_bot(1, [] {
-        ::fog::bot::gate_bot_01();
+        // ::fog::bot::gate_bot_01();
+        ::fog::bot::gate_bot_login();
     });
     jthd.join();
     return 0;
