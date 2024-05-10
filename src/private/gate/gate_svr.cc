@@ -21,6 +21,7 @@ void gate_svr::svr_run() {
     this->_udp_sock->open(this->_saddr->protocol()); // 添加协议
     this->_udp_sock->bind(*this->_saddr);
     char buf[1024] = {0};
+    ::memset(buf, 0, 1024);
     this->_logger->print("gate sock begin");
     while (!this->_stop) {
         boost::asio::ip::udp::endpoint* caddr = new boost::asio::ip::udp::endpoint;
@@ -31,7 +32,7 @@ void gate_svr::svr_run() {
         ::memcpy(&proto, buf + sizeof(uint16_t), sizeof(uint16_t));
         char msg[len] = {0};
         ::memcpy(msg, buf + 2 * sizeof(uint16_t), len);
-        this->_logger->print("gate recv :: ", msg);
+        this->_logger->print("gate recv :: ", len, proto, msg);
         ::memset(buf, 0, 1024);
         delete caddr;
     }
