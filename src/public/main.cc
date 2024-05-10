@@ -5,6 +5,7 @@
 #include <thread>
 #include "bot/bot.hh"
 #include "bot/gate_bot.hh"
+#include "pb/example.hh"
 
 int main(int argc, char** argv) {
 
@@ -45,6 +46,7 @@ int main(int argc, char** argv) {
         // ::fog::bot::gate_bot_01();
         ::fog::bot::gate_bot_login();
     });
+    fog::pb::example();
     jthd.join();
     return 0;
 }

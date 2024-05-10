@@ -1,5 +1,7 @@
 #include "gate/gate_svr.hh"
 
+#include "login.pb.h"
+
 #include "log/logger.hh"
 #include "cfg/cfg.hh"
 // #include "bot/gate_bot.hh"

@@ -28,7 +28,6 @@ void gate_bot_login() {
     udp_sock.open(local_addr.protocol());
     char buf[1024] = {0};
     ::memset(buf, 0, 1024);
-    std::string send_str("msg send");
     char msg[] = "msg send\0";
     uint16_t len = sizeof(msg) / sizeof(char);
     ::memcpy(buf, &len, sizeof(uint16_t));
