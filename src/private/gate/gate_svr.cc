@@ -2,6 +2,8 @@
 
 #include "login.pb.h"
 
+#include "pb/pb.hh"
+
 #include "log/logger.hh"
 #include "cfg/cfg.hh"
 // #include "bot/gate_bot.hh"
@@ -28,16 +30,9 @@ void gate_svr::svr_run() {
     while (!this->_stop) {
         boost::asio::ip::udp::endpoint* caddr = new boost::asio::ip::udp::endpoint;
         this->_udp_sock->receive_from(boost::asio::buffer(buf, 1024), *caddr);
-        uint16_t len = 0;
-        ::memcpy(&len, buf, sizeof(uint16_t));
-        uint16_t proto = 0;
-        ::memcpy(&proto, buf + sizeof(uint16_t), sizeof(uint16_t));
-        char msg[len] = {0};
-        login::CSReqLogin re;
-        ::memcpy(msg, buf + 2 * sizeof(uint16_t), len);
-        re.ParseFromArray(msg, len);
-        this->_logger->print("gate recv :: ", len, proto, re.account(), re.password());
-        ::memset(buf, 0, 1024);
+        login::CSReqLogin recv;
+        auto [proto, len] = fog::pb::parse_pb(buf, &recv);
+        this->_logger->print("gate recv ::", len, proto, recv.account(), recv.password());
         delete caddr;
     }
 }
