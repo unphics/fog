@@ -5,7 +5,7 @@
 #include "log/logger.hh"
 #include "cfg/cfg.hh"
 // #include "bot/gate_bot.hh"
-
+#include <string>
 
 namespace fog::gate {
 
@@ -22,7 +22,7 @@ void gate_svr::svr_run() {
     this->_saddr = new boost::asio::ip::udp::endpoint(boost::asio::ip::address::from_string(::fog::cfg::svr_ip), ::fog::cfg::svr_port); // 绑定ip和port
     this->_udp_sock->open(this->_saddr->protocol()); // 添加协议
     this->_udp_sock->bind(*this->_saddr);
-    char buf[1024] = {0};
+    char buf[1024];
     ::memset(buf, 0, 1024);
     this->_logger->print("gate sock begin");
     while (!this->_stop) {
@@ -33,8 +33,10 @@ void gate_svr::svr_run() {
         uint16_t proto = 0;
         ::memcpy(&proto, buf + sizeof(uint16_t), sizeof(uint16_t));
         char msg[len] = {0};
+        login::CSReqLogin re;
         ::memcpy(msg, buf + 2 * sizeof(uint16_t), len);
-        this->_logger->print("gate recv :: ", len, proto, msg);
+        re.ParseFromArray(msg, len);
+        this->_logger->print("gate recv :: ", len, proto, re.account(), re.password());
         ::memset(buf, 0, 1024);
         delete caddr;
     }

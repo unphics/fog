@@ -13,11 +13,9 @@ void example() {
     login::CSReqLogin msg;
     msg.set_account(10001);
     msg.set_password("100001");
-    // std::string msg_str;
     uint16_t len = msg.ByteSizeLong();
     char arr[len];
     msg.SerializeToArray(arr, len);
-    // std::cout << "pb::example() :" << arr << ", " << len << std::endl;
 
     login::CSReqLogin re;
     re.ParseFromArray(arr, len);

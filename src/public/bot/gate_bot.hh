@@ -1,7 +1,10 @@
 #ifndef fog_bot_gate_bot
 #define fog_bot_gate_bot
 
+#include "login.pb.h"
+
 #include "cfg/cfg.hh"
+#include "pb/pb.hh"
 
 #include <stdint.h>
 #include <iostream>
@@ -26,16 +29,13 @@ void gate_bot_login() {
     boost::asio::ip::udp::socket udp_sock(io_service);
     boost::asio::ip::udp::endpoint local_addr(boost::asio::ip::address::from_string(::fog::cfg::svr_ip), ::fog::cfg::svr_port);
     udp_sock.open(local_addr.protocol());
-    char buf[1024] = {0};
-    ::memset(buf, 0, 1024);
-    char msg[] = "msg send\0";
-    uint16_t len = sizeof(msg) / sizeof(char);
-    ::memcpy(buf, &len, sizeof(uint16_t));
-    uint16_t proto = 10001;
-    std::cout << "bot: len " << len << std::endl;
-    ::memcpy(buf + sizeof(uint16_t), &proto, sizeof(uint16_t));
-    ::memcpy(buf + 2 * sizeof(uint16_t), msg, len);
-    udp_sock.send_to(boost::asio::buffer(buf, 1024), local_addr);
+
+
+    login::CSReqLogin msg;
+    msg.set_account(10001);
+    msg.set_password("100001");
+    pb::send_udp<login::CSReqLogin>(&udp_sock, &local_addr, &msg);
+    
     std::cout << "gate_bot_login end" << std::endl;
 }
 

@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
         // ::fog::bot::gate_bot_01();
         ::fog::bot::gate_bot_login();
     });
-    fog::pb::example();
+    // fog::pb::example();
     jthd.join();
     return 0;
 }
