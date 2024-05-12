@@ -29,10 +29,10 @@ void gate_bot_login() {
     boost::asio::ip::udp::socket udp_sock(io_service);
     boost::asio::ip::udp::endpoint local_addr(boost::asio::ip::address::from_string(::fog::cfg::svr_ip), ::fog::cfg::svr_port);
     udp_sock.open(local_addr.protocol());
-    login::CSReqLogin msg;
+    ::login::CSReqLogin msg;
     msg.set_account(10002);
     msg.set_password("100002");
-    pb::send_udp<login::CSReqLogin>(&udp_sock, &local_addr, &msg);
+    pb::send_udp<::login::CSReqLogin>(&udp_sock, &local_addr, &msg);
     std::cout << "gate_bot_login end" << std::endl;
 }
 

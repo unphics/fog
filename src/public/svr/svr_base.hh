@@ -21,7 +21,6 @@ public:
 protected:
     uint16_t _id;
     std::string _name;
-    std::vector<std::shared_ptr<svr_base>> _other_svrs;
     typename ::fog::log::logger* _logger;
     std::atomic_bool _stop;
 };

@@ -10,12 +10,12 @@ namespace fog::log {
 
 template<typename T>
 void _recurse_cout(std::ostringstream& oss, T t) {
-    oss << " " << t;
+    oss << t;
 }
 
 template<typename T, typename... Args>
 void _recurse_cout(std::ostringstream& oss, T t, Args... args) {
-    oss << " " << t;
+    oss << t; // oss << " " << t;
     _recurse_cout(oss, args...);
 }
 

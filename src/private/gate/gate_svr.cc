@@ -1,11 +1,11 @@
 #include "gate/gate_svr.hh"
 
-#include "login.pb.h"
-
 #include "pb/pb.hh"
 
 #include "log/logger.hh"
 #include "cfg/cfg.hh"
+#include "center/center_svr.hh"
+#include "login/login_svr.hh"
 // #include "bot/gate_bot.hh"
 #include <string>
 
@@ -31,11 +31,21 @@ void gate_svr::svr_run() {
         boost::asio::ip::udp::endpoint caddr;
         this->_udp_sock->receive_from(boost::asio::buffer(buf, 1024), caddr);
         auto [msg, proto, len] = fog::pb::split_msg(buf);
-        this->deal_msg(caddr, proto, std::move(msg));
+        this->deal_msg(caddr, proto, len, std::move(msg));
     }
 }
-void gate_svr::deal_msg(boost::asio::ip::udp::endpoint caddr, uint16_t proto, std::unique_ptr<char[]> msg) {
-    
+void gate_svr::deal_msg(boost::asio::ip::udp::endpoint caddr, uint16_t proto, uint16_t len, std::unique_ptr<char[]> msg) {
+    // login::CSReqLogin req;
+    // req.ParseFromArray(msg.get(), len);
+    this->_logger->print("gate_svr::deal_msg", " recv : ", proto);
+
+    uint16_t category = proto / 1000;
+    switch (category) {
+        case 10: 
+            this->_center->login()->anonym_msg(caddr, proto, len, std::move(msg));
+            break;
+        default: this->_logger->print("undefined proto: ", proto); break;
+    }
 }
 
 }

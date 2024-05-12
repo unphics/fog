@@ -10,14 +10,14 @@
 namespace fog::pb {
 
 void example() {
-    login::CSReqLogin msg;
+    ::login::CSReqLogin msg;
     msg.set_account(10001);
     msg.set_password("100001");
     uint16_t len = msg.ByteSizeLong();
     char arr[len];
     msg.SerializeToArray(arr, len);
 
-    login::CSReqLogin re;
+    ::login::CSReqLogin re;
     re.ParseFromArray(arr, len);
     std::cout << "pb::example() :" << re.account() << ", " << re.password() << std::endl;
 }
