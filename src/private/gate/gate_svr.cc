@@ -28,13 +28,14 @@ void gate_svr::svr_run() {
     ::memset(buf, 0, 1024);
     this->_logger->print("gate sock begin");
     while (!this->_stop) {
-        boost::asio::ip::udp::endpoint* caddr = new boost::asio::ip::udp::endpoint;
-        this->_udp_sock->receive_from(boost::asio::buffer(buf, 1024), *caddr);
-        login::CSReqLogin recv;
-        auto [proto, len] = fog::pb::parse_pb(buf, &recv);
-        this->_logger->print("gate recv ::", len, proto, recv.account(), recv.password());
-        delete caddr;
+        boost::asio::ip::udp::endpoint caddr;
+        this->_udp_sock->receive_from(boost::asio::buffer(buf, 1024), caddr);
+        auto [msg, proto, len] = fog::pb::split_msg(buf);
+        this->deal_msg(caddr, proto, std::move(msg));
     }
+}
+void gate_svr::deal_msg(boost::asio::ip::udp::endpoint caddr, uint16_t proto, std::unique_ptr<char[]> msg) {
+    
 }
 
 }

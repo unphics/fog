@@ -8,6 +8,7 @@
 
 #include <condition_variable>
 #include <mutex>
+#include <memory>
 
 namespace fog::center{class center_svr;}
 
@@ -19,6 +20,7 @@ public:
     virtual ~gate_svr();
     virtual void svr_run() override;
 protected:
+    void deal_msg(boost::asio::ip::udp::endpoint caddr, uint16_t proto, std::unique_ptr<char[]> msg);
     boost::asio::io_service* _io_svc;
     boost::asio::ip::udp::socket* _udp_sock;
     center::center_svr* _center;
