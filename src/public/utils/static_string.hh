@@ -33,7 +33,7 @@ struct static_string {
 /*
 template<static_string s>
 void foo() {
-    std::cout << "foo" << std::endl;
+    std::cout << s.data() << std::endl;
 }
 template<>
 void foo<"ikun">() {
